@@ -2,7 +2,7 @@ use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-my %prereq = ( 'HTML::Mason' => 1.09_01,
+my %prereq = ( 'HTML::Mason' => 1.12,
 	       'Apache::Session' => 1.54,
 	     );
 
@@ -10,24 +10,6 @@ eval { require mod_perl };
 unless ( $@ || $^O =~ /mac|darwin/ )
 {
     $prereq{'Apache::Cookie'} = 0;
-}
-
-eval { require HTML::Mason };
-unless ($@)
-{
-    if ( $HTML::Mason::VERSION <= 1.0902 )
-    {
-	print <<'EOF';
-
-***************************** BUG ALERT *****************************
-
-Please be aware that versions 1.09_01 and 1.09_02 of Mason have a bug
-that will make it impossible to configure this module via your
-httpd.conf file.  This bug is fixed in CVS and will be included in the
-next release of Mason.
-
-EOF
-    }
 }
 
 WriteMakefile

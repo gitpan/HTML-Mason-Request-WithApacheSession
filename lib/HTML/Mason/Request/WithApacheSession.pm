@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.04';
+$VERSION = '0.05';
 
 use Apache::Session;
 
@@ -269,21 +269,14 @@ $StudlyForm{textsize} = 'textsize';
 
 sub new
 {
-    {
-        my $new_isa = ( $HTML::Mason::ApacheHandler::VERSION ?
-                        'HTML::Mason::Request::ApacheHandler' :
-                        $HTML::Mason::CGIHandler::VERSION ?
-                        'HTML::Mason::Request::CGI' :
-                        'HTML::Mason::Request' );
-
-        if ( $ISA[0] ne $new_isa )
-        {
-            @ISA = $new_isa;
-            __PACKAGE__->valid_params(%params);
-        }
-    }
 
     my $class = shift;
+
+    $class->alter_superclass( $HTML::Mason::ApacheHandler::VERSION ?
+                              'HTML::Mason::Request::ApacheHandler' :
+                              $HTML::Mason::CGIHandler::VERSION ?
+                              'HTML::Mason::Request::CGI' :
+                              'HTML::Mason::Request' );
 
     my $self = $class->SUPER::new(@_);
 

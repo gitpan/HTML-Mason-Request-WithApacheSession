@@ -1,3 +1,7 @@
+0.05
+
+- Use Request->alter_superclass method available in Mason 1.12.
+
 0.04  July 17, 2002
 
 - Make it play nicer with a caching Class::Container.
