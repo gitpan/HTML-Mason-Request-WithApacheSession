@@ -25,16 +25,13 @@ Then in your httpd.conf file add:
 
 DEPENDENCIES
 
-You must have Mason 1.09_01 or newer installed for this module to work
+You must have Mason 1.10 or newer installed for this module to work
 at all.
 
 BUGS
 
-There is a bug in the most recent Mason beta, 1.09_02, that makes it
-impossible to configure this module via the Apache configuration file.
-Mason will complain about invalid parameters.  If you really want to
-live on the bleading edge, feel free to install the CVS version of
-Mason, which includes a fix for this bug.
+Bug reports should be sent to the mason-users list.  See
+http://www.masonhq.com/resources/mailing_lists.html for more details.
 
 COPYRIGHT AND LICENCE
 

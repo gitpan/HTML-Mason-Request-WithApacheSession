@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.06';
+$VERSION = '0.07';
 
 use Apache::Session;
 
@@ -46,12 +46,12 @@ my %params =
 	descr => 'Name of cookie used by this module' },
 
       session_cookie_expires =>
-      { type => SCALAR,
+      { type => UNDEF | SCALAR,
 	default => '+1d',
 	descr => 'Expiration time for cookies' },
 
       session_cookie_domain =>
-      { type => SCALAR,
+      { type => UNDEF | SCALAR,
 	default => undef,
 	descr => 'Domain parameter for cookies' },
 
@@ -75,12 +75,12 @@ my %params =
 	descr => 'The data source when using MySQL or PostgreSQL' },
 
       session_user_name =>
-      { type => SCALAR,
+      { type => UNDEF | SCALAR,
 	default => undef,
 	descr => 'The user name to be used when connecting to a database' },
 
       session_password =>
-      { type => SCALAR,
+      { type => UNDEF | SCALAR,
 	default => undef,
 	descr => 'The password to be used when connecting to a database' },
 
@@ -90,12 +90,12 @@ my %params =
 	descr => 'The data source when using MySQL or PostgreSQL' },
 
       session_lock_user_name =>
-      { type => SCALAR,
-	default => undef,
+      { type => UNDEF | SCALAR,
+        default => undef,
 	descr => 'The user name to be used when connecting to a database' },
 
       session_lock_password =>
-      { type => SCALAR,
+      { type => UNDEF | SCALAR,
 	default => undef,
 	descr => 'The password to be used when connecting to a database' },
 
@@ -423,6 +423,9 @@ sub _make_session
 
     if ($@)
     {
+        # so new id is used in cookie.
+        delete $self->{session_id};
+
 	if ( $@ =~ /Object does not exist/ )
 	{
 	    HTML::Mason::Exception::NonExistentSessionID->throw
@@ -802,6 +805,9 @@ C<Apache::Session::PHP>.
 As can be seen by the number of parameters above, C<Apache::Session>
 has B<way> too many possibilities for me to test all of them.  This
 means there are almost certainly bugs.
+
+Bug reports should be sent to the mason-users list.  See
+http://www.masonhq.com/resources/mailing_lists.html for more details.
 
 =head1 AUTHOR
 

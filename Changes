@@ -1,10 +1,19 @@
-0.06
+0.07  August 19, 2002 (from Taiwan)
+
+- Some parameters which should have allowed undef were not allowing
+it.
+
+- When an incoming cookie contained an invalid session id and a new
+session was created, the old session id was still being set in the
+cookie for that request.  Reported by Warren Welch.
+
+0.06  August 1, 2002
 
 - Every call to $m->session was baking a new cookie.  Reported by
 Chris Huseman.
 - Added $m->delete_session method.  Suggested by Chris Huseman.
 
-0.05
+0.05  July 23, 2002
 
 - Use Request->alter_superclass method available in Mason 1.12.
 
