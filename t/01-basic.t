@@ -226,5 +226,23 @@ EOF
 
 #------------------------------------------------------------
 
+    $group->add_test
+	( name => 'delete_session',
+	  description => 'make sure delete_session method works',
+	  interp_params => \%params,
+	  component => <<'EOF',
+% $m->session->{foo} = 'foo';
+<% $m->session->{foo} %>
+% $m->delete_session;
+foo does <% exists $m->session->{foo} ? '' : 'not' %> exist
+EOF
+	  expect => <<'EOF',
+foo
+foo does not exist
+EOF
+	);
+
+#------------------------------------------------------------
+
     return $group;
 }

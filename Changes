@@ -1,3 +1,9 @@
+0.06
+
+- Every call to $m->session was baking a new cookie.  Reported by
+Chris Huseman.
+- Added $m->delete_session method.  Suggested by Chris Huseman.
+
 0.05
 
 - Use Request->alter_superclass method available in Mason 1.12.

@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 use Apache::Session;
 
@@ -379,9 +379,24 @@ sub session
     $self->{session} ||= $self->_make_session(@_);
     $self->{session_id} ||= $self->{session}{_session_id};
 
-    $self->_bake_cookie if $self->{session_use_cookie};
+    $self->_bake_cookie if $self->{session_use_cookie} && ! $self->{session_cookie_is_baked};
 
     return $self->{session};
+}
+
+sub delete_session
+{
+    my $self = shift;
+
+    return unless $self->{session};
+
+    my $session = delete $self->{session};
+
+    (tied %$session)->delete;
+
+    delete $self->{session_id};
+
+    $self->_bake_cookie('-1d') if $self->{session_use_cookie};
 }
 
 sub _make_session
@@ -429,6 +444,7 @@ sub _make_session
 sub _bake_cookie
 {
     my $self = shift;
+    my $expires = shift || $self->{session_cookie_expires};
 
     my $domain =
 	$self->{session_cookie_domain};
@@ -437,7 +453,7 @@ sub _bake_cookie
 	( $self->apache_req,
 	  -name    => $self->{session_cookie_name},
 	  -value   => $self->{session_id},
-	  -expires => $self->{session_cookie_expires},
+	  -expires => $expires,
 	  ( defined $self->{session_cookie_domain} ?
 	    ( -domain  => $domain ) :
 	    ()
@@ -445,6 +461,8 @@ sub _bake_cookie
 	  -path    => $self->{session_cookie_path},
 	  -secure  => $self->{session_cookie_secure},
 	)->bake;
+
+    $self->{session_cookie_is_baked} = 1;
 }
 
 sub _session_params
@@ -563,6 +581,22 @@ If you are using a F<handler.pl> file, simply add this parameter to
 the parameters given to the ApacheHandler constructor:
 
   request_class => 'HTML::Mason::Request::WithApacheSession'
+
+=head1 METHODS
+
+This class adds two methods to the Request object.
+
+=over 4
+
+=item * session
+
+This method returns a hash tied to the C<Apache::Session> class.
+
+=item * delete_session
+
+This method deletes the existing session from persistent storage.  If
+you are using the built-in cookie mechanism, it also deletes the
+cookie in the browser.
 
 =head1 CONFIGURATION
 
