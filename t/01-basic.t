@@ -202,5 +202,29 @@ EOF
 
 #------------------------------------------------------------
 
+    $group->add_support( path => '/as/subrequest',
+                         component => <<'EOF',
+foo: <% $m->session->{foo} %>
+EOF
+                       );
+
+#------------------------------------------------------------
+
+    $group->add_test( name => 'subrequest1',
+                      description => 'Make sure session is shared with subrequests',
+                      interp_params => \%params,
+                      component => <<'EOF',
+Parent
+% $m->session->{foo} = 'bar';
+% $m->subexec( '/basic-session/as/subrequest' );
+EOF
+                      expect => <<'EOF',
+Parent
+foo: bar
+EOF
+                    );
+
+#------------------------------------------------------------
+
     return $group;
 }

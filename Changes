@@ -1,3 +1,10 @@
+0.03  July 15, 2002
+
+- Make it work with upcoming Class::Container (which does more
+caching).
+
+- Fix handling of subrequests.
+
 0.02  June 20, 2002
 
 - Make it work with CGIHandler as well.
