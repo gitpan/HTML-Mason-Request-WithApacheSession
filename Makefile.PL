@@ -2,7 +2,9 @@ use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-my %prereq = ( 'HTML::Mason' => 1.09_01 );
+my %prereq = ( 'HTML::Mason' => 1.09_01,
+	       'Apache::Session' => 1.54,
+	     );
 
 eval { require mod_perl };
 unless ( $@ || $^O =~ /mac|darwin/ )
@@ -34,5 +36,4 @@ WriteMakefile
       PREREQ_PM     => \%prereq,
       ABSTRACT_FROM => 'lib/HTML/Mason/Request/WithApacheSession.pm',
       AUTHOR        => 'Dave Rolsky <autarch@urth.org>',
-    )
-
+    );

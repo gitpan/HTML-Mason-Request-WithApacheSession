@@ -1,6 +1,9 @@
-Revision history for Perl extension HTML::Mason::Request::WithApacheSession.
+0.02  June 20, 2002
 
-0.01  Wed Jun 12 14:20:02 2002
-	- original version; created by h2xs 1.21 with options
-		-AX -n HTML::Mason::Request::WithApacheSession
+- Make it work with CGIHandler as well.
 
+- Add Apache::Session to prereq (duh!).  Reported by Alex Muntada.
+
+0.01  June 12, 2002
+
+- initial release
