@@ -1,0 +1,6 @@
+Revision history for Perl extension HTML::Mason::Request::WithApacheSession.
+
+0.01  Wed Jun 12 14:20:02 2002
+	- original version; created by h2xs 1.21 with options
+		-AX -n HTML::Mason::Request::WithApacheSession
+

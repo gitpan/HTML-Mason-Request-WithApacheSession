@@ -1,0 +1,6 @@
+Changes
+MANIFEST
+Makefile.PL
+README
+lib/HTML/Mason/Request/WithApacheSession.pm
+t/01-basic.t
