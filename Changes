@@ -1,3 +1,7 @@
+0.04  July 17, 2002
+
+- Make it play nicer with a caching Class::Container.
+
 0.03  July 15, 2002
 
 - Make it work with upcoming Class::Container (which does more

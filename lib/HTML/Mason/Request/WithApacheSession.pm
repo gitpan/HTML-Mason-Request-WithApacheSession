@@ -5,7 +5,7 @@ use strict;
 
 use vars qw($VERSION @ISA);
 
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 use Apache::Session;
 
@@ -182,8 +182,8 @@ my %params =
 	descr => 'Path used by Apache::Session::PHP' },
 
     );
-__PACKAGE__->valid_params(%params);
 
+__PACKAGE__->valid_params(%params);
 
 # What set of parameters are required for each session class.
 # Multiple array refs represent multiple possible sets of parameters
@@ -279,9 +279,8 @@ sub new
         if ( $ISA[0] ne $new_isa )
         {
             @ISA = $new_isa;
+            __PACKAGE__->valid_params(%params);
         }
-
-        __PACKAGE__->valid_params(%params);
     }
 
     my $class = shift;
